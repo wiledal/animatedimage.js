@@ -1,4 +1,4 @@
-# AnimatedImage.js
+# animatedimage.js
 > Simple animated image sequences using data-attributes of an existing image-element.
 
 ### Example Usage
@@ -24,20 +24,21 @@ Check out the __examples__ for further reference.
 
 ### Attributes
 * `data-src` - string  
-The url to the images. `{n}` will be replaced by the current frame number in the playback.<br><br>
+The url to the images. `{n}` will be replaced by the current frame number in the playback.
 
 * `data-frames` - number  
-The amount of frames in the sequence.<br><br>
+The amount of frames in the sequence.
 
 * `data-fps` - number (optional, defalut: `24`)  
 The amount of frames in the sequence.<br><br>
 
 * `data-start-frame` - number (optional, default: `0`)  
-Sets the starting frame of the sequence, which is the first image that will be requested.<br><br>
+Sets the starting frame of the sequence, which is the first image that will be requested.
 
 * `data-yoyo` - boolean (optional, default: `false`)  
-If this attribute is present, the animation will change direction and go back and forth in its timeline.<br><br>
-
+If this attribute is present, the animation will change direction and go back and forth in its timeline.
 ### Release logs
+
+
 * 0.1.0  
-  > First release
+  First release
