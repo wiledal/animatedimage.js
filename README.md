@@ -30,15 +30,15 @@ The url to the images. `{n}` will be replaced by the current frame number in the
 The amount of frames in the sequence.
 
 * `data-fps` - number (optional, defalut: `24`)  
-The amount of frames in the sequence.<br><br>
+The amount of frames in the sequence.
 
 * `data-start-frame` - number (optional, default: `0`)  
 Sets the starting frame of the sequence, which is the first image that will be requested.
 
 * `data-yoyo` - boolean (optional, default: `false`)  
 If this attribute is present, the animation will change direction and go back and forth in its timeline.
+
+
 ### Release logs
-
-
 * 0.1.0  
   First release
