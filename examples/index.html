@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AnimatedImage</title>
+</head>
+<body>
+  <p>
+    12 FPS
+    <img class="animated" src="images/animatedimage-1.png" data-src="images/animatedimage-{n}.png" data-start-frame="1" data-frames="6" data-fps="12">
+  </p>
+  <p>
+    24 FPS
+    <img class="animated" src="images/animatedimage-1.png" data-src="images/animatedimage-{n}.png" data-start-frame="1" data-frames="6" data-fps="24">
+  </p>
+
+  <p>
+    50 FPS
+    <img class="animated" src="images/animatedimage-1.png" data-yoyo data-src="images/animatedimage-{n}.png" data-start-frame="1" data-frames="6" data-fps="1">
+  </p>
+
+  <script type="text/javascript" src="../dist/animatedimage.js"></script>
+  <script type="text/javascript">
+
+    AnimatedImage.initiateAll(document.getElementsByClassName("animated"));
+
+  </script>
+</body>
+</html>
