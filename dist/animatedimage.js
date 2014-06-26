@@ -25,33 +25,38 @@
         this[option] = options[option];
       }
       this.imageSrc = this.el.getAttribute("data-src" || null);
+      this.replaceString = this.el.getAttribute("data-src").match(/\{([n]+?)\}/);
       this.startFrame = parseInt(this.el.getAttribute("data-start-frame")) || 0;
       this.frames = parseInt(this.el.getAttribute("data-frames")) || null;
       this.fps = parseInt(this.el.getAttribute("data-fps")) || 24;
       this.yoyo = (this.el.getAttribute("data-yoyo") !== null ? true : false);
       this._direction = 1;
       this.currentFrame = this.startFrame;
-      this.maxFrames = this.startFrame + this.frames;
+      this.maxFrames = this.startFrame + this.frames - 1;
       setInterval(this.tick, 1000 / this.fps);
     }
 
     AnimatedImage.prototype.tick = function() {
+      var processedFrame;
       this.currentFrame += this._direction;
-      if (this.currentFrame === this.maxFrames - 1) {
-        if (this.yoyo) {
+      if (this.yoyo) {
+        if (this.currentFrame === this.maxFrames || this.currentFrame === this.startFrame) {
           this._direction = -this._direction;
-        } else {
+        }
+      } else {
+        if (this.currentFrame > this.maxFrames) {
           this.currentFrame = this.startFrame;
         }
       }
-      if (this.currentFrame === this.startFrame) {
-        if (this.yoyo) {
-          this._direction = -this._direction;
-        } else {
-          this.currentFrame = this.startFrame;
-        }
+      processedFrame = this.prependZerosToNumber(this.currentFrame, this.replaceString[1].length);
+      return this.el.src = this.imageSrc.replace(this.replaceString[0], processedFrame);
+    };
+
+    AnimatedImage.prototype.prependZerosToNumber = function(num, numZeros) {
+      while (num.toString().length < numZeros) {
+        num = "0" + num;
       }
-      return this.el.src = this.imageSrc.replace("{n}", this.currentFrame);
+      return num;
     };
 
     return AnimatedImage;

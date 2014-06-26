@@ -11,6 +11,8 @@ class AnimatedImage
       @[option] = options[option]
 
     @imageSrc = @el.getAttribute "data-src" || null
+    @replaceString = @el.getAttribute("data-src").match(/\{([n]+?)\}/)
+
     @startFrame = parseInt(@el.getAttribute "data-start-frame") || 0
     @frames = parseInt(@el.getAttribute "data-frames") || null
     @fps = parseInt(@el.getAttribute "data-fps") || 24
@@ -19,25 +21,27 @@ class AnimatedImage
     @_direction = 1
 
     @currentFrame = @startFrame
-    @maxFrames = @startFrame + @frames
+    @maxFrames = @startFrame + @frames - 1
 
     setInterval @tick, 1000 / @fps
 
   tick: =>
     @currentFrame += @_direction
-    if @currentFrame == @maxFrames-1
-      if @yoyo
+
+    if @yoyo
+      if @currentFrame == @maxFrames || @currentFrame == @startFrame
         @_direction = -@_direction
-      else
+    else
+      if @currentFrame > @maxFrames
         @currentFrame = @startFrame
 
-    if @currentFrame == @startFrame
-      if @yoyo
-        @_direction = -@_direction
-      else
-        @currentFrame = @startFrame
+    processedFrame = @prependZerosToNumber(@currentFrame, @replaceString[1].length)
+    @el.src = @imageSrc.replace(@replaceString[0], processedFrame)
 
-    @el.src = @imageSrc.replace("{n}", @currentFrame)
+  prependZerosToNumber: (num, numZeros) ->
+    while num.toString().length < numZeros
+      num = "0" + num
+    return num
 
 # EXPORTS
 window?.AnimatedImage = AnimatedImage
